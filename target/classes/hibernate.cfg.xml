@@ -29,7 +29,7 @@
 		<property name="hbm2ddl.auto">create</property>
 		
 		<mapping class="br.edu.unibratec.livrariadigital.model.Produto"/>
-		<mapping class="br.edu.unibratec.livrariadigital.model.Tipo"/>  
+		<mapping class="br.edu.unibratec.livrariadigital.model.TYPE"/>  
 
 	</session-factory>
 </hibernate-configuration>

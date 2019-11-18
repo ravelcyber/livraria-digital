@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.edu.unibratec.livrariadigital.model.Livro;
 
-public interface IRepositorioLivro {
+public interface IRepositorioLivro<Object> {
 	
 	//Metodos do CRUD
 	

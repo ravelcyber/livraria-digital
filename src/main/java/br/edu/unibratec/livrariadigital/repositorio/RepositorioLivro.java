@@ -3,15 +3,29 @@ package br.edu.unibratec.livrariadigital.repositorio;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import br.edu.unibratec.livrariadigital.model.Livro;
 
 public class RepositorioLivro implements IRepositorioLivro {
 
 
 	List<Livro> Livros = new ArrayList<Livro>();
-
+	private SessionFactory sessionFactory;
+	
+	public RepositorioLivro() {
+		sessionFactory = new Configuration()
+				.configure().buildSessionFactory();
+	}
+	
+	
 	public Livro create(Livro pLivro) {
-
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		
 		if (this.Livros.size() == 0) {
 
 			pLivro.setId(1);
@@ -20,41 +34,58 @@ public class RepositorioLivro implements IRepositorioLivro {
 			pLivro.setId(this.Livros.size() + 1);
 		}
 
-		this.Livros.add(pLivro);
+		session.save(pLivro);
+		session.getTransaction().commit();
+		session.close();
 
 		return pLivro;
 	}
 
 	public List<Livro> read() {
-		return this.Livros;
+		List<Livro> result = new ArrayList<Livro>();
+		Session session = sessionFactory.openSession();
+		 	
+		result = session.createQuery("from Produto").list();
+		
+		session.close();
+		
+		return result;
 	}
 
 	public Livro update(Livro pLivro) {	
        
-				this.Livros.remove(pLivro);
-
-				this.Livros.add(pLivro);
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		session.saveOrUpdate(pLivro);		
+		
+		session.getTransaction().commit();
+		session.close();
 		
 		System.out.println("Livro atualizado com Sucesso!");
 
 		return pLivro;
 	}
-
+	
 	public Boolean delete(Livro pLivro) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 		for(int i = 0; i < Livros.size(); i++)
 		{
 			pLivro = Livros.get(i);
 
 			if(pLivro.getId().equals(Livros))
 			{        
-				this.Livros.remove(pLivro);
+				session.delete(pLivro);	
 				break;
 			}
 		}
+		session.getTransaction().commit();
+		session.close();
 		System.out.println("Livro deletado com Sucesso!");
 
 		return true;
-	}
+	} 
 
 	public Boolean livroExistente(Livro pLivro) {
 		return this.Livros.contains(pLivro);
@@ -110,6 +141,9 @@ public class RepositorioLivro implements IRepositorioLivro {
 
 		return livroId;
 	}
+
+
+
 
 	
 }

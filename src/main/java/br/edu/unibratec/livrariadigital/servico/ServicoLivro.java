@@ -44,6 +44,7 @@ public class ServicoLivro implements IServicoLivro {
 		return vLivro;
 	}
 
+	
 	public Boolean delete(Livro vLivro) throws servicoException {
 		Boolean vDeletado = false;
 
@@ -95,6 +96,11 @@ public class ServicoLivro implements IServicoLivro {
 		vLivros = repositorio.readId(id);
 		
 		return vLivros;
+	}
+
+	public Boolean delete(Integer id) throws servicoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

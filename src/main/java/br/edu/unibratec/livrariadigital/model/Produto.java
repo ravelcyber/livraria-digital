@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Produto {
 
+	
+
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO )
 	private Integer id;
@@ -16,18 +18,27 @@ public class Produto {
 	private String editora;
 	private Integer ano;
 	@ManyToOne
-	private Tipo tipo;
+	private TYPE type;
+	
+	
+	public Produto() {
 
-	public Produto(String titulo, String editora, Integer ano, Tipo tipo) {
+	}
+
+	public Produto(String titulo, String editora, Integer ano,TYPE type) {
 		super();
 		this.titulo = titulo;
 		this.editora = editora;
 		this.ano = ano;
-		this.tipo = tipo;
+		this.type = type;
 	}
 
-	public Produto() {
+	public TYPE getType() {
+		return type;
+	}
 
+	public void setType(TYPE type) {
+		this.type = type;
 	}
 
 	public Integer getId() {
@@ -60,14 +71,6 @@ public class Produto {
 
 	public void setAno(Integer ano) {
 		this.ano = ano;
-	}
-
-	public Tipo getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
 	}
 
 }

@@ -5,10 +5,8 @@ import java.io.Console;
 import java.util.Scanner;
 
 import br.edu.unibratec.livrariadigital.excecoes.servicoException;
-import br.edu.unibratec.livrariadigital.model.Digital;
-import br.edu.unibratec.livrariadigital.model.Fisico;
 import br.edu.unibratec.livrariadigital.model.Livro;
-import br.edu.unibratec.livrariadigital.model.Tipo;
+import br.edu.unibratec.livrariadigital.model.TYPE;
 import br.edu.unibratec.livrariadigital.servico.ServicoLivro;
 
 public class Main {
@@ -65,13 +63,13 @@ public class Main {
 				System.out.println("--Digital ou Física--\n");
 				tipo = s.next();
 				if(tipo.equalsIgnoreCase("física") || tipo.equalsIgnoreCase("f"))
-					v2Livro.setTipo(new Fisico());
+					v2Livro.setType(TYPE.FISICO);;
 				if(tipo.equalsIgnoreCase("digital")|| tipo.equalsIgnoreCase("d"))
 					System.out.println("Digite a url do livro:\n");
-				    url = s.next();
+				    v2Livro.setUrl(s.next());
 				    System.out.println("Digite o tamanho do arquivo:\n");
-				    tamanho = s.nextFloat();
-					v2Livro.setTipo(new Digital(url, tamanho));			
+				    v2Livro.setTamanho(s.nextFloat());
+					v2Livro.setType(TYPE.DIGITAL);		
 				try {
 					System.out.println(servicoLivro.create(v2Livro));
 				} catch (servicoException e) {
@@ -125,9 +123,9 @@ public class Main {
 				System.out.println("--Dgitial ou Física-1-\n");
 				tipo = s.next();
 				if(tipo.equalsIgnoreCase("física"))
-					v2Livro.setTipo(new Fisico());
+					//v2Livro.setTipo(new Fisico());
 				if(tipo.equalsIgnoreCase("digital"))
-					v2Livro.setTipo(new Digital());	
+					//v2Livro.setTipo(new Digital());	
 				try {
 			
 					System.out.println(servicoLivro.update(v2Livro));
@@ -135,13 +133,15 @@ public class Main {
 					System.err.println(e.getMessage());
 				}
 				break;
-			case 7:		
+			case 7:	
+				
 				try {
 					System.out.println(servicoLivro.delete(v2Livro));
 				} catch (servicoException e) {
 					System.err.println(e.getMessage());
 				}
 				break;
+				
 			}
 		} while (opcao != 0);
 		
